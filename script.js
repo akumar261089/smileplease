@@ -85,7 +85,7 @@ async function fetchNewJoke() {
 
                 // Time-based joke
                 const currentHour = new Date().getHours();
-                selectedFile = currentHour < 12 ? "jokes/jokes_${contry}_morning.json" : "jokes/jokes_${contry}_evening.json";
+                selectedFile = currentHour < 12 ? `jokes/jokes_${contry}_morning.json` : `jokes/jokes_${contry}_evening.json`;
             } else {
                 // Common joke (jokes1 to jokes6)
                 const minFileNumber = 1;
