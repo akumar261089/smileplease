@@ -1,8 +1,4 @@
 let smileCount = 0;
-let userLocation = {};
-let userIP = "";
-
-
 
 // Fetch and display a random quote
 async function fetchRandomQuote() {
@@ -18,48 +14,47 @@ async function fetchRandomQuote() {
 
 // Event listeners for buttons
 document.addEventListener("DOMContentLoaded", async () => {
-
-    fetchNewJokeOrImage();
-
+    fetchNewJoke();
     fetchRandomQuote();
 
     document.getElementById("smileButton").addEventListener("click", () => {
         incrementSmileCounter();
-        fetchNewJokeOrImage();
+        fetchNewJoke();
     });
 
     document.getElementById("tryAgainButton").addEventListener("click", () => {
-        fetchNewJokeOrImage();
+        fetchNewJoke();
     });
 });
 
-// Fetch a joke
-async function fetchNewJokeOrImage() {
+// Fetch a random joke from a randomly selected file
+async function fetchNewJoke() {
     try {
-        const response = await fetch("https://v2.jokeapi.dev/joke/Any?type=single");
-        const data = await response.json();
-        document.getElementById("jokeContainer").innerText = data.joke || "Couldn't fetch a joke. Please try again!";
+        // Generate a random number within the range of available joke files
+        const minFileNumber = 1;
+        const maxFileNumber = 3;
+        const randomFileNumber = Math.floor(Math.random() * (maxFileNumber - minFileNumber + 1)) + minFileNumber;
+        
+        // Construct the file path using the random number
+        const selectedFile = `jokes/jokes${randomFileNumber}.json`;
+
+        // Fetch jokes from the selected file
+        const response = await fetch(selectedFile);
+        const jokes = await response.json();
+
+        // Pick a random joke from the array
+        const randomJokeIndex = Math.floor(Math.random() * jokes.length);
+        const joke = jokes[randomJokeIndex];
+
+        document.getElementById("jokeContainer").innerText = joke || "Couldn't fetch a joke. Please try again!";
     } catch (error) {
+        console.error("Error loading joke:", error);
         document.getElementById("jokeContainer").innerText = "Error loading joke. Please try again!";
     }
 }
 
-// Fetch user details
-async function fetchUserDetails() {
-    try {
-        const response = await fetch("https://ipapi.co/json/");
-        const data = await response.json();
-        userIP = data.ip;
-        userLocation = { city: data.city, region: data.region, country: data.country_name };
-    } catch (error) {
-        console.error("Error fetching user details:", error);
-    }
-}
-
-// Increment smile count and commit to GitHub
-async function incrementSmileCounter() {
+// Increment smile count and update display
+function incrementSmileCounter() {
     smileCount++;
     document.getElementById("smileCount").innerText = `Total Smiles: ${smileCount}`;
-
 }
-
