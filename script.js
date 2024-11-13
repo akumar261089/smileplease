@@ -32,7 +32,7 @@ async function fetchNewJoke() {
     try {
         // Generate a random number within the range of available joke files
         const minFileNumber = 1;
-        const maxFileNumber = 3;
+        const maxFileNumber = 6;
         const randomFileNumber = Math.floor(Math.random() * (maxFileNumber - minFileNumber + 1)) + minFileNumber;
         
         // Construct the file path using the random number
