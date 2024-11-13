@@ -78,14 +78,14 @@ async function fetchNewJoke() {
                 selectedFile = currentHour < 12 ? "jokes/jokes_morning.json" : "jokes/jokes_evening.json";
             } else if (jokeCategory === 2) {
                 if (userLocation.country === "India") {
-                    contry= "india";
+                    country = "india";
                 } else {
-                    contry= "world";
+                    country = "world";
                 }
 
                 // Time-based joke
                 const currentHour = new Date().getHours();
-                selectedFile = currentHour < 12 ? `jokes/jokes_${contry}_morning.json` : `jokes/jokes_${contry}_evening.json`;
+                selectedFile = currentHour < 12 ? `jokes/jokes_${country}_morning.json` : `jokes/jokes_${country}_evening.json`;
             } else {
                 // Common joke (jokes1 to jokes6)
                 const minFileNumber = 1;
