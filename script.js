@@ -2,6 +2,9 @@
 let smileCount = parseInt(localStorage.getItem("smileCount")) || 0;
 let userLocation = {};
 let userIP = "";
+let isCameraActive = false;
+const webcamVideo = document.getElementById("webcamVideo");
+
 // Retrieve previously displayed jokes from localStorage or initialize as an empty array
 let displayedJokes = JSON.parse(localStorage.getItem("displayedJokes")) || [];
 
@@ -20,6 +23,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("tryAgainButton").addEventListener("click", () => {
         fetchNewJoke();
     });
+
+    // Camera toggle functionality
+    document.getElementById("cameraToggle").addEventListener("change", toggleCamera);
 });
 
 // Fetch user location data
@@ -138,4 +144,26 @@ function incrementSmileCounter() {
     smileCount++;
     localStorage.setItem("smileCount", smileCount);
     document.getElementById("smileCount").innerText = `Total Smiles: ${smileCount}`;
+}
+
+// Toggle Camera on/off based on checkbox status
+async function toggleCamera(event) {
+    const isCameraChecked = event.target.checked;
+
+    if (isCameraChecked) {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            webcamVideo.srcObject = stream;
+            webcamVideo.style.display = "block";
+        } catch (err) {
+            console.error("Error accessing webcam:", err);
+        }
+    } else {
+        // Stop the camera stream when checkbox is unchecked
+        const stream = webcamVideo.srcObject;
+        const tracks = stream.getTracks();
+
+        tracks.forEach(track => track.stop());
+        webcamVideo.style.display = "none";
+    }
 }
