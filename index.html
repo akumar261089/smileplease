@@ -32,14 +32,19 @@
 
         <!-- Buttons -->
         <div class="buttons">
-            <button id="smileButton">Yes, I smiled 😄</button>
-            <button id="tryAgainButton">Try again 🔄</button>
+            <!-- button id="smileButton">Yes, I smiled 😄</button -->
+            <button id="tryAgainButton">More 🔄</button>
         </div>
 
         <!-- Smile Count -->
+         
         <p id="smileCount">Total Smiles: 0</p>
-         <!-- Camera Toggle Slider -->
-         <label for="cameraToggle">Use Camera</label>
+        <!-- <p id = "ageGender">Age and gender</p> -->
+        <!-- Progress bar element -->
+        <progress id="statusBar" value="0" max="9"></progress>
+        <!-- Camera Toggle Slider -->
+         <label for="cameraToggle">Capture Your Smiles</label>
+         
          <input type="checkbox" id="cameraToggle" />
          <br />
     </div>
@@ -49,7 +54,8 @@
         <p>&copy; 2024 SmilePlease. All rights reserved.</p>
         <p>This project is licensed under the MIT License.</p>
     </footer>
-
-    <script src="script.js"></script>
+    <script src="./face-api.min.js"></script>
+    <script src="script.js" defer></script>
+    
 </body>
 </html>
